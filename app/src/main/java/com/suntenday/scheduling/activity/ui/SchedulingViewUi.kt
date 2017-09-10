@@ -7,7 +7,7 @@ import org.jetbrains.anko.AnkoContext
 import org.jetbrains.anko.linearLayout
 
 /**
- * Created by zhengli08275 on 2017/9/8 0008.
+ * Created by suntenday on 2017/9/8 0008.
  */
 class SchedulingViewUi(activity: SchedulingActivity):AnkoComponent<SchedulingActivity>{
 

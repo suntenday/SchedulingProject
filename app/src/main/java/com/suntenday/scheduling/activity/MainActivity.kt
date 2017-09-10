@@ -9,6 +9,9 @@ import com.suntenday.scheduling.R
 import org.jetbrains.anko.sdk25.coroutines.onClick
 import org.jetbrains.anko.startActivity
 
+/**
+ * @author suntenday
+ */
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
