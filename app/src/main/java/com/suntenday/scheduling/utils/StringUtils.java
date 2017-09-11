@@ -23,6 +23,14 @@ public class StringUtils {
 			return false;
 		}
 	}
+
+	public static boolean isStrEmpty(String str){
+		if(str != null && !"".equals(str)){
+			return false;
+		}else{
+			return true;
+		}
+	}
 	
 	public static JSONObject checkPassword(String password){
 		JSONObject json = new JSONObject();

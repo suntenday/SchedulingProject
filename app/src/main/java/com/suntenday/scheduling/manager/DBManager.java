@@ -11,6 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.suntenday.scheduling.bean.EmployeeRuleBean;
 import com.suntenday.scheduling.enums.CommonEnum;
 import com.suntenday.scheduling.utils.LogUtils;
+import com.suntenday.scheduling.utils.StringUtils;
 
 /**
  * 数据库管理
@@ -79,7 +80,9 @@ public class DBManager {
     }
 
     public void addEmployeeRule(Context context, EmployeeRuleBean data) {
-
+        ArrayList<EmployeeRuleBean> listData = new ArrayList<>();
+        listData.add(data);
+        addEmployeeRuleList(context, listData);
     }
 
     public void addEmployeeRuleList(Context context, ArrayList<EmployeeRuleBean> listData) {
@@ -130,7 +133,7 @@ public class DBManager {
         }
     }
 
-    public void deletePush(Context context, EmployeeRuleBean employeeRuleData) {
+    public void deleteEmployeeRule(Context context, EmployeeRuleBean employeeRuleData) {
         SQLiteDatabase db = getDBHelper(context).getWritableDatabase();
 
         if (db != null) {
@@ -139,20 +142,21 @@ public class DBManager {
 
             db.delete(DBHelper.EMPLOYEE_RULE_TABLE_NAME, whereClause, whereArgs);
         } else {
-            LogUtils.logError(LOG_TAG, "deletePush, db=null");
+            LogUtils.logError(LOG_TAG, "deleteEmployeeRule, db=null");
         }
     }
 
-    public ArrayList<EmployeeRuleBean> queryMsgPushData(Context context) {
+    public ArrayList<EmployeeRuleBean> queryEmployeeRule(Context context, String whereClause, String[] whereArgs) {
         SQLiteDatabase db = getDBHelper(context).getWritableDatabase();
 
-        ArrayList<EmployeeRuleBean> listData = new ArrayList<EmployeeRuleBean>();
+        ArrayList<EmployeeRuleBean> listData = new ArrayList<>();
 
         try {
-            String whereClause = "user_id=?";
-            String[] whereArgs = {};
+            if(StringUtils.isStrNotEmpty(whereClause)) {
+                whereClause = whereClause + "=?";
+            }
             Cursor cursor = db.query(DBHelper.EMPLOYEE_RULE_TABLE_NAME,
-                    null, whereClause, whereArgs, null, null, "time desc");
+                    null, whereClause, whereArgs, null, null, null);
             for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 EmployeeRuleBean employeeRuleData = new EmployeeRuleBean(cursor);
                 listData.add(employeeRuleData);
@@ -160,7 +164,7 @@ public class DBManager {
 
             cursor.close();
         } catch (Exception e) {
-            LogUtils.logError(LOG_TAG, "queryPush, exception:" + e.getLocalizedMessage() + ";db=" + db);
+            LogUtils.logError(LOG_TAG, "queryEmployeeRule, exception:" + e.getLocalizedMessage() + ";db=" + db);
             e.printStackTrace();
         }
 
