@@ -9,6 +9,7 @@ import com.suntenday.scheduling.bean.EmployeeRuleBean
 import com.suntenday.scheduling.bean.SimpleBean
 import com.suntenday.scheduling.manager.DBManager
 import com.suntenday.scheduling.utils.ArrayUtils
+import com.suntenday.scheduling.utils.StringUtils
 import org.jetbrains.anko.setContentView
 import org.jetbrains.anko.toast
 import java.time.DayOfWeek
@@ -26,6 +27,10 @@ class TypeInActivity : BaseActivity() {
     }
 
     fun addEmployeeRule(employeeRuleBean: EmployeeRuleBean) {
+        if(StringUtils.isStrEmpty(employeeRuleBean.name)){
+            toast("请填写姓名")
+            return
+        }
         val whereArgs = arrayOf(employeeRuleBean.name)
         val employeeRuleBeanList = DBManager.getInstance().queryEmployeeRule(this, "employee_name", whereArgs)
         if (ArrayUtils.isEmpty(employeeRuleBeanList)) {
@@ -34,10 +39,10 @@ class TypeInActivity : BaseActivity() {
             DBManager.getInstance().updateEmployeeRule(this, employeeRuleBean)
         }
         toast("添加成功")
+        queryEmployeeRule()
     }
 
     fun queryEmployeeRule(){
-        val whereArgs = arrayOf("测试")
         employeeRuleList = DBManager.getInstance().queryEmployeeRule(this,null,null)
         TypeInViewUi(this,employeeRuleList).setContentView(this)
     }

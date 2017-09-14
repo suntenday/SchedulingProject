@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<dimen name="activity_horizontal_margin">16dp</dimen>
+	<dimen name="activity_vertical_margin">16dp</dimen>
+	<dimen name="slidingmenu_offset">100dp</dimen>
+	<dimen name="navigation_height">40dp</dimen>
+	<dimen name="message_size">24dp</dimen>
+	<dimen name="list_padding">10dp</dimen>
+	<dimen name="shadow_width">15dp</dimen>
+
+	<!-- 分辨率 -->
+	<dimen name="height_xhdpi">800dp</dimen>
+
+	<!-- 字体 -->
+	<dimen name="huger_text_size">35sp</dimen>
+	<dimen name="huger_mid_text_size">30sp</dimen>
+	<dimen name="huge_text_size">24sp</dimen>
+	<dimen name="large_text_size">20sp</dimen>
+	<dimen name="middle_text_size">18sp</dimen>
+	<dimen name="small_text_size">16sp</dimen>
+	<dimen name="wee_text_size">14sp</dimen>
+	<dimen name="wex_text_size">12sp</dimen>
+	<dimen name="wer_text_size">10sp</dimen>
+	<dimen name="werr_text_size">9sp</dimen>
+	<dimen name="west_text_size">7sp</dimen>
+
+	<!-- 间距 -->
+	<dimen name="ultimate_super_plus_spacing">90dp</dimen>
+	<dimen name="ultimate_super_spacing">80dp</dimen>
+	<dimen name="ultimate_plus_spacing">70dp</dimen>
+	<dimen name="ultimate_spacing">60dp</dimen>
+	<dimen name="super_plus_plus_spacing">50dp</dimen>
+	<dimen name="super_plus_spacing">40dp</dimen>
+	<dimen name="super_spacing">30dp</dimen>
+	<dimen name="huger_spacing">25dp</dimen>
+	<dimen name="huge_spacing">20dp</dimen>
+	<dimen name="large_spacing">15dp</dimen>
+	<dimen name="middle_spacing">10dp</dimen>
+	<dimen name="middle_smaller_spacing">8dp</dimen>
+	<dimen name="small_spacing">5dp</dimen>
+	<dimen name="smaller_spacing">3dp</dimen>
+	<dimen name="smallest_spacing">2dp</dimen>
+	<dimen name="empty_spacing">0dp</dimen>
+	<dimen name="negative_small_spacing">-5dp</dimen>
+
+	<!-- 线宽 -->
+	<dimen name="corner_frame_stroke_width">1dp</dimen>
+	<dimen name="corner_frame_stroke_width_mini">0.5dp</dimen>
+	<dimen name="corner_frame_stroke_width_mini_top">0.6dp</dimen>
+
+	<!-- 定义圆角角度 -->
+	<dimen name="corner_frame_radius">5dp</dimen>
+	<dimen name="corner_dialog_radius">10dp</dimen>
+	<dimen name="dialog_progress_radius">10dp</dimen>
+
+	<!-- Banner高度 -->
+	<dimen name="banner_height">170dp</dimen>
+
+	<dimen name="dialog_refund_min_width">220dp</dimen>
+
+</resources>

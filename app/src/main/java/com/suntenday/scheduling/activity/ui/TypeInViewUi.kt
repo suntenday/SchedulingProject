@@ -1,28 +1,21 @@
 package com.suntenday.scheduling.activity.ui
 
 import android.text.Editable
-import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Toast
-import com.alibaba.fastjson.JSON
+import android.text.TextUtils
+import android.view.Gravity
 import com.suntenday.scheduling.R
 import com.suntenday.scheduling.activity.TypeInActivity
 import com.suntenday.scheduling.bean.EmployeeRuleBean
-import com.suntenday.scheduling.bean.SimpleBean
-import com.suntenday.scheduling.enums.CommonEnum
 import com.suntenday.scheduling.utils.ArrayUtils
-import com.suntenday.scheduling.utils.StringUtils
 import org.jetbrains.anko.*
 import org.jetbrains.anko.sdk25.coroutines.onCheckedChange
 import org.jetbrains.anko.sdk25.coroutines.onClick
-import org.jetbrains.anko.sdk25.coroutines.onItemClick
 import org.jetbrains.anko.sdk25.coroutines.textChangedListener
 
 /**
  * Created by suntenday on 2017/9/8 0008.
  */
-class TypeInViewUi(activity: TypeInActivity, employeeRuleBeanList:List<EmployeeRuleBean>) : AnkoComponent<TypeInActivity> {
+class TypeInViewUi(activity: TypeInActivity, employeeRuleBeanList: List<EmployeeRuleBean>) : AnkoComponent<TypeInActivity> {
 
     private val mThis = activity
     private var employeeRuleBean = EmployeeRuleBean()
@@ -30,6 +23,28 @@ class TypeInViewUi(activity: TypeInActivity, employeeRuleBeanList:List<EmployeeR
 
     override fun createView(ui: AnkoContext<TypeInActivity>) = with(ui) {
         verticalLayout {
+
+            linearLayout {
+                backgroundColor = resources.getColor(R.color.blue_dark)
+                imageView{
+                    imageResource = R.drawable.header_back
+                    onClick {
+                        mThis.finish()
+                    }
+                }.lparams(width = 0,weight = 1f,height = wrapContent){
+                    gravity = Gravity.CENTER
+                    setPadding(dip(0),dip(5),dip(0),dip(5))
+                }
+
+                textView("录入"){
+                    textColor = resources.getColor(R.color.white)
+                    textSize = resources.getDimension(R.dimen.wex_text_size)
+                    gravity = Gravity.CENTER
+                }.lparams(width = 0,weight = 10f){
+                    gravity = Gravity.CENTER
+                }
+            }.lparams(width = matchParent)
+
             //信息录入部分
             linearLayout {
 
@@ -39,7 +54,7 @@ class TypeInViewUi(activity: TypeInActivity, employeeRuleBeanList:List<EmployeeR
                 editText {
                     hint = "请输入姓名"
                     textChangedListener {
-                        afterTextChanged { s: Editable? -> employeeRuleBean.name = s.toString()}
+                        afterTextChanged { s: Editable? -> employeeRuleBean.name = s.toString() }
                     }
                 }
 
@@ -88,43 +103,44 @@ class TypeInViewUi(activity: TypeInActivity, employeeRuleBeanList:List<EmployeeR
             }
             button("提交") {
                 backgroundResource = R.color.blue
+                textColor = resources.getColor(R.color.white)
                 onClick {
-                    toast(JSON.toJSONString(employeeRuleBean))
                     mThis.addEmployeeRule(employeeRuleBean)
                 }
+            }.lparams(width = matchParent){
+                setMargins(dip(10),dip(5),dip(10),dip(5))
             }
-            button("查询") {
-                backgroundResource = R.color.blue
-                onClick {
-                    mThis.queryEmployeeRule()
-                }
-            }
-            verticalLayout {
-                linearLayout {
-                    textView("姓名").lparams(width = 0,weight = 1f)
-                    textView("周一").lparams(width = 0,weight = 1f)
-                    textView("周二").lparams(width = 0,weight = 1f)
-                    textView("周三").lparams(width = 0,weight = 1f)
-                    textView("周四").lparams(width = 0,weight = 1f)
-                    textView("周五").lparams(width = 0,weight = 1f)
-                    textView("周六").lparams(width = 0,weight = 1f)
-                    textView("周日").lparams(width = 0,weight = 1f)
-                }.lparams(width = matchParent)
-                if (ArrayUtils.isNotEmpty(employeeRuleBeanList)) {
-                    for (item in employeeRuleBeanList) {
-                        linearLayout {
-                            textView(item.name).lparams(width = 0,weight = 1f)
-                            textView(item.isMondayChecked.toString()).lparams(width = 0,weight = 1f)
-                            textView(item.isTuesdayChecked.toString()).lparams(width = 0,weight = 1f)
-                            textView(item.isWednesdayChecked.toString()).lparams(width = 0,weight = 1f)
-                            textView(item.isThursdayChekced.toString()).lparams(width = 0,weight = 1f)
-                            textView(item.isFridayChecked.toString()).lparams(width = 0,weight = 1f)
-                            textView(item.isSaturdayChecked.toString()).lparams(width = 0,weight = 1f)
-                            textView(item.isSundayChecked.toString()).lparams(width = 0,weight = 1f)
-                        }.lparams(width = matchParent)
+            scrollView {
+                verticalLayout {
+                    linearLayout {
+                        textView("姓名").lparams(width = 0, weight = 1.5f)
+                        textView("周一").lparams(width = 0, weight = 1f)
+                        textView("周二").lparams(width = 0, weight = 1f)
+                        textView("周三").lparams(width = 0, weight = 1f)
+                        textView("周四").lparams(width = 0, weight = 1f)
+                        textView("周五").lparams(width = 0, weight = 1f)
+                        textView("周六").lparams(width = 0, weight = 1f)
+                        textView("周日").lparams(width = 0, weight = 1f)
+                    }.lparams(width = matchParent)
+                    if (ArrayUtils.isNotEmpty(employeeRuleBeanList)) {
+                        for (item in employeeRuleBeanList) {
+                            linearLayout {
+                                textView(item.name) {
+                                    singleLine = true
+                                    ellipsize = TextUtils.TruncateAt.END
+                                }.lparams(width = 0, weight = 1.5f)
+                                textView(if (item.isMondayChecked) "有空" else "没空").lparams(width = 0, weight = 1f)
+                                textView(if (item.isTuesdayChecked) "有空" else "没空").lparams(width = 0, weight = 1f)
+                                textView(if (item.isWednesdayChecked) "有空" else "没空").lparams(width = 0, weight = 1f)
+                                textView(if (item.isThursdayChekced) "有空" else "没空").lparams(width = 0, weight = 1f)
+                                textView(if (item.isFridayChecked) "有空" else "没空").lparams(width = 0, weight = 1f)
+                                textView(if (item.isSaturdayChecked) "有空" else "没空").lparams(width = 0, weight = 1f)
+                                textView(if (item.isSundayChecked) "有空" else "没空").lparams(width = 0, weight = 1f)
+                            }.lparams(width = matchParent)
+                        }
                     }
                 }
-            }
+            }.lparams(width = matchParent,height = matchParent)
 /*            // 1
             verticalLayout {
                 padding = dip(16)

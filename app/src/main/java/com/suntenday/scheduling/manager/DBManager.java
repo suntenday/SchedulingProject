@@ -28,6 +28,7 @@ public class DBManager {
         private static final int DB_VERSION = 1;
 
         public static final String EMPLOYEE_RULE_TABLE_NAME = "employee_rule_table";
+        public static final String EMPLOYEE_SCHEDULING_TABLE_NAME = "employee_scheduling_table";
 
         public DBHelper(Context context) {
             super(context, DATABASE_NAME, null, DB_VERSION);
@@ -36,6 +37,7 @@ public class DBManager {
         // 数据库第一次被创建时调用
         @Override
         public void onCreate(SQLiteDatabase db) {
+
             db.execSQL("CREATE TABLE IF NOT EXISTS " + EMPLOYEE_RULE_TABLE_NAME + "(" +
                     "employee_name text primary key, " +
                     "employee_monday_checked text, " +
@@ -45,6 +47,14 @@ public class DBManager {
                     "employee_friday_checked text, " +
                     "employee_saturday_checked text, " +
                     "employee_sunday_checked text " +
+                    ")"
+            );
+
+            db.execSQL("CREATE TABLE IF NOT EXISTS " + EMPLOYEE_SCHEDULING_TABLE_NAME + "(" +
+                    "scheduling_id integer PRIMARY KEY autoincrement," +
+                    "scheduling_date text," +
+                    "scheduling_day integer," +
+                    "scheduling_employees_name text" +
                     ")"
             );
 
@@ -152,7 +162,7 @@ public class DBManager {
         ArrayList<EmployeeRuleBean> listData = new ArrayList<>();
 
         try {
-            if(StringUtils.isStrNotEmpty(whereClause)) {
+            if (StringUtils.isStrNotEmpty(whereClause)) {
                 whereClause = whereClause + "=?";
             }
             Cursor cursor = db.query(DBHelper.EMPLOYEE_RULE_TABLE_NAME,
