@@ -42,6 +42,14 @@ class TypeInActivity : BaseActivity() {
         queryEmployeeRule()
     }
 
+    fun deleteEmployeeRule(employeeRuleBean: EmployeeRuleBean){
+        if(employeeRuleBean != null){
+            DBManager.getInstance().deleteEmployeeRule(this,employeeRuleBean)
+            toast("删除成功")
+            queryEmployeeRule()
+        }
+    }
+
     fun queryEmployeeRule(){
         employeeRuleList = DBManager.getInstance().queryEmployeeRule(this,null,null)
         TypeInViewUi(this,employeeRuleList).setContentView(this)

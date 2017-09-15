@@ -34,7 +34,7 @@
                 android:id="@+id/btn_type_in"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/blue_dark"
+                android:background="@color/royal_blue"
                 android:layout_marginRight="20dp"
                 android:text="@string/main_button_type_in"
                 android:textColor="@color/white" />

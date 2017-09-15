@@ -1,6 +1,8 @@
 package com.suntenday.scheduling.activity.ui
 
 import android.view.Gravity
+import android.view.View
+import android.widget.LinearLayout
 import android.widget.TextView
 import com.suntenday.scheduling.R
 import com.suntenday.scheduling.activity.SchedulingActivity
@@ -19,11 +21,12 @@ class SchedulingViewUi(activity: SchedulingActivity, year: Int, month: Int, empl
     val mEmployeeList = employeeList
     var selectedYear = year
     var selectedMonth = month
+    var mCalendarView = HashMap<Int, LinearLayout>()
 
     override fun createView(ui: AnkoContext<SchedulingActivity>) = with(ui) {
         verticalLayout {
             linearLayout {
-                backgroundColor = resources.getColor(R.color.blue_dark)
+                backgroundColor = resources.getColor(R.color.royal_blue)
                 imageView {
                     imageResource = R.drawable.header_back
                     onClick {
@@ -53,7 +56,8 @@ class SchedulingViewUi(activity: SchedulingActivity, year: Int, month: Int, empl
                                 val years = listOf("2017", "2018")
                                 selector("选择年份", years) { ds, i ->
                                     selectedYear = StringUtils.strToInt("${years[i]}")
-                                    toast(selectedYear.toString())
+                                    text = selectedYear.toString() + "年 >"
+                                    mThis.queryScheduling(selectedYear, selectedMonth)
                                 }
                             }
                             setPadding(dip(10), dip(5), dip(10), dip(5))
@@ -71,7 +75,8 @@ class SchedulingViewUi(activity: SchedulingActivity, year: Int, month: Int, empl
                                 val months = listOf("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12")
                                 selector("选择月份", months) { ds, i ->
                                     selectedMonth = StringUtils.strToInt("${months[i]}")
-                                    toast(selectedMonth.toString())
+                                    text = selectedMonth.toString() + "月 >"
+                                    mThis.queryScheduling(selectedYear, selectedMonth)
                                 }
                             }
                             setPadding(dip(10), dip(5), dip(10), dip(5))
@@ -87,143 +92,165 @@ class SchedulingViewUi(activity: SchedulingActivity, year: Int, month: Int, empl
                     gravity = Gravity.CENTER
                 }
 
-                button("排班") {
-                    textColor = resources.getColor(R.color.white)
-                    backgroundDrawable = resources.getDrawable(R.drawable.selector_button_blue_corner)
-                    onClick {
-                        mThis.queryScheduling(selectedYear, selectedMonth)
+                linearLayout {
+                    button {
+                        if (mEmployeeList != null && mEmployeeList.size > 0) {
+                            text = "已排班"
+                            isEnabled = false
+                        } else {
+                            text = "排班"
+                            isEnabled = true
+                        }
+                        textColor = resources.getColor(R.color.white)
+                        backgroundDrawable = resources.getDrawable(R.drawable.selector_button_blue_corner)
+                        onClick {
+                            mThis.addScheduling(selectedYear, selectedMonth)
+                        }
+                    }.lparams(width = 0, weight = 1f) {
+                        setMargins(dip(15), dip(0), dip(15), dip(5))
+                        gravity = Gravity.CENTER
                     }
-                }.lparams(width = matchParent) {
-                    setMargins(dip(15), dip(0), dip(15), dip(5))
-                    gravity = Gravity.CENTER
-                }
+
+                    if (mEmployeeList != null && mEmployeeList.size > 0) {
+                        button("重新排班") {
+                            textColor = resources.getColor(R.color.white)
+                            backgroundDrawable = resources.getDrawable(R.drawable.shape_bg_crimson_5r)
+                            onClick {
+                                mThis.updateScheduling(selectedYear, selectedMonth)
+                            }
+                        }.lparams(width = 0, weight = 1f) {
+                            setMargins(dip(15), dip(0), dip(15), dip(5))
+                            gravity = Gravity.CENTER
+                        }
+                    }
+                }.lparams(width = matchParent)
             }
 
             scrollView {
                 verticalLayout {
 
                     linearLayout {
-                        textView("周一").lparams(width = 0, weight = 1f)
-                        textView("周二").lparams(width = 0, weight = 1f)
-                        textView("周三").lparams(width = 0, weight = 1f)
-                        textView("周四").lparams(width = 0, weight = 1f)
-                        textView("周五").lparams(width = 0, weight = 1f)
-                        textView("周六").lparams(width = 0, weight = 1f)
-                        textView("周日").lparams(width = 0, weight = 1f)
+                        backgroundColor = resources.getColor(R.color.royal_blue)
+                    }.lparams(width = matchParent, height = 1)
+
+                    linearLayout {
+                        linearLayout { backgroundColor = resources.getColor(R.color.royal_blue) }.lparams(width = 1, height = matchParent)
+                        textView("周日") {
+                            gravity = Gravity.CENTER
+                            textColor = resources.getColor(R.color.crimson)
+                        }.lparams(width = 0, weight = 1f)
+                        linearLayout { backgroundColor = resources.getColor(R.color.royal_blue) }.lparams(width = 1, height = matchParent)
+                        textView("周一") { gravity = Gravity.CENTER }.lparams(width = 0, weight = 1f)
+                        linearLayout { backgroundColor = resources.getColor(R.color.royal_blue) }.lparams(width = 1, height = matchParent)
+                        textView("周二") { gravity = Gravity.CENTER }.lparams(width = 0, weight = 1f)
+                        linearLayout { backgroundColor = resources.getColor(R.color.royal_blue) }.lparams(width = 1, height = matchParent)
+                        textView("周三") { gravity = Gravity.CENTER }.lparams(width = 0, weight = 1f)
+                        linearLayout { backgroundColor = resources.getColor(R.color.royal_blue) }.lparams(width = 1, height = matchParent)
+                        textView("周四") { gravity = Gravity.CENTER }.lparams(width = 0, weight = 1f)
+                        linearLayout { backgroundColor = resources.getColor(R.color.royal_blue) }.lparams(width = 1, height = matchParent)
+                        textView("周五") { gravity = Gravity.CENTER }.lparams(width = 0, weight = 1f)
+                        linearLayout { backgroundColor = resources.getColor(R.color.royal_blue) }.lparams(width = 1, height = matchParent)
+                        textView("周六") {
+                            gravity = Gravity.CENTER
+                            textColor = resources.getColor(R.color.crimson)
+                        }.lparams(width = 0, weight = 1f)
+                        linearLayout { backgroundColor = resources.getColor(R.color.royal_blue) }.lparams(width = 1, height = matchParent)
                         gravity = Gravity.CENTER
                     }.lparams(width = matchParent)
 
-                    val week1 = linearLayout {
-                        textView("").lparams(width = 0, weight = 1f)
-                        textView("").lparams(width = 0, weight = 1f)
-                        textView("").lparams(width = 0, weight = 1f)
-                        textView("").lparams(width = 0, weight = 1f)
-                        textView("").lparams(width = 0, weight = 1f)
-                        textView("").lparams(width = 0, weight = 1f)
-                        textView("").lparams(width = 0, weight = 1f)
-                    }.lparams(width = matchParent)
+                    linearLayout {
+                        backgroundColor = resources.getColor(R.color.royal_blue)
+                    }.lparams(width = matchParent, height = 1)
 
-                    val week2 = linearLayout {
-                        textView("").lparams(width = 0, weight = 1f)
-                        textView("").lparams(width = 0, weight = 1f)
-                        textView("").lparams(width = 0, weight = 1f)
-                        textView("").lparams(width = 0, weight = 1f)
-                        textView("").lparams(width = 0, weight = 1f)
-                        textView("").lparams(width = 0, weight = 1f)
-                        textView("").lparams(width = 0, weight = 1f)
-                    }.lparams(width = matchParent)
+                    for(viewIndex in 1..5) {
+                        val week = linearLayout {
+                            linearLayout { backgroundColor = resources.getColor(R.color.royal_blue) }.lparams(width = 1, height = matchParent)
+                            textView("") { gravity = Gravity.CENTER }.lparams(width = 0, weight = 1f)
+                            linearLayout { backgroundColor = resources.getColor(R.color.royal_blue) }.lparams(width = 1, height = matchParent)
+                            textView("") { gravity = Gravity.CENTER }.lparams(width = 0, weight = 1f)
+                            linearLayout { backgroundColor = resources.getColor(R.color.royal_blue) }.lparams(width = 1, height = matchParent)
+                            textView("") { gravity = Gravity.CENTER }.lparams(width = 0, weight = 1f)
+                            linearLayout { backgroundColor = resources.getColor(R.color.royal_blue) }.lparams(width = 1, height = matchParent)
+                            textView("") { gravity = Gravity.CENTER }.lparams(width = 0, weight = 1f)
+                            linearLayout { backgroundColor = resources.getColor(R.color.royal_blue) }.lparams(width = 1, height = matchParent)
+                            textView("") { gravity = Gravity.CENTER }.lparams(width = 0, weight = 1f)
+                            linearLayout { backgroundColor = resources.getColor(R.color.royal_blue) }.lparams(width = 1, height = matchParent)
+                            textView("") { gravity = Gravity.CENTER }.lparams(width = 0, weight = 1f)
+                            linearLayout { backgroundColor = resources.getColor(R.color.royal_blue) }.lparams(width = 1, height = matchParent)
+                            textView("") { gravity = Gravity.CENTER }.lparams(width = 0, weight = 1f)
+                            linearLayout { backgroundColor = resources.getColor(R.color.royal_blue) }.lparams(width = 1, height = matchParent)
+                        }.lparams(width = matchParent)
 
-                    val week3 = linearLayout {
-                        textView("").lparams(width = 0, weight = 1f)
-                        textView("").lparams(width = 0, weight = 1f)
-                        textView("").lparams(width = 0, weight = 1f)
-                        textView("").lparams(width = 0, weight = 1f)
-                        textView("").lparams(width = 0, weight = 1f)
-                        textView("").lparams(width = 0, weight = 1f)
-                        textView("").lparams(width = 0, weight = 1f)
-                    }.lparams(width = matchParent)
-
-                    val week4 = linearLayout {
-                        textView("").lparams(width = 0, weight = 1f)
-                        textView("").lparams(width = 0, weight = 1f)
-                        textView("").lparams(width = 0, weight = 1f)
-                        textView("").lparams(width = 0, weight = 1f)
-                        textView("").lparams(width = 0, weight = 1f)
-                        textView("").lparams(width = 0, weight = 1f)
-                        textView("").lparams(width = 0, weight = 1f)
-                    }.lparams(width = matchParent)
-
-                    val week5 = linearLayout {
-                        textView("").lparams(width = 0, weight = 1f)
-                        textView("").lparams(width = 0, weight = 1f)
-                        textView("").lparams(width = 0, weight = 1f)
-                        textView("").lparams(width = 0, weight = 1f)
-                        textView("").lparams(width = 0, weight = 1f)
-                        textView("").lparams(width = 0, weight = 1f)
-                        textView("").lparams(width = 0, weight = 1f)
-                    }.lparams(width = matchParent)
+                        linearLayout {
+                            backgroundColor = resources.getColor(R.color.royal_blue)
+                        }.lparams(width = matchParent, height = 1)
+                        mCalendarView.put(viewIndex, week)
+                    }
 
                     val monthDay = mThis.getMonthDay(selectedYear, selectedMonth)
                     var index = 1
                     var weekIndex = 1
-                    var weekView = week1
+                    var weekView = mCalendarView[1]
                     for (i in 1..monthDay) {
                         val date = selectedYear.toString() + "-" + selectedMonth.toString() + "-" + i
                         val week = CalendarUtils.getWeek(date, CalendarUtils.DATE_FORMAT)
-                            if (i == 1) {
-                                if ("星期一" == week) {
-                                    index = 1
-                                } else if ("星期二" == week) {
-                                    index = 2
-                                } else if ("星期三" == week) {
-                                    index = 3
-                                } else if ("星期四" == week) {
-                                    index = 4
-                                } else if ("星期五" == week) {
-                                    index = 5
-                                } else if ("星期六" == week) {
-                                    index = 6
-                                } else if ("星期日" == week) {
-                                    index = 7
-                                }
-                                    val name = mEmployeeList[i]
-                                    if (StringUtils.isStrNotEmpty(name)) {
-                                        (week1.getChildAt(index-1) as TextView).text = name
-                                    } else {
-                                        (week1.getChildAt(index-1) as TextView).text = i.toString()
-                                    }
-                                if(index<7){
-                                    index++
-                                }else{
-                                    index = 1
-                                }
-                            }else{
-                                val name = mEmployeeList[i]
-                                if(index == 1){
-                                    if(weekIndex == 1) {
-                                        weekView = week2
-                                    }else if(weekIndex == 2) {
-                                        weekView = week3
-                                    }else if(weekIndex == 3) {
-                                        weekView = week4
-                                    }else if(weekIndex == 4) {
-                                        weekView = week5
-                                    }
-                                    weekIndex++
-                                }
-
-                                if (StringUtils.isStrNotEmpty(name)) {
-                                    (weekView.getChildAt(index-1) as TextView).text = name
-                                } else {
-                                    (weekView.getChildAt(index-1) as TextView).text = i.toString()
-                                }
-
-                                if(index<7){
-                                    index++
-                                }else{
-                                    index = 1
-                                }
+                        if (i == 1) {
+                            if ("星期一" == week) {
+                                index = 2
+                            } else if ("星期二" == week) {
+                                index = 3
+                            } else if ("星期三" == week) {
+                                index = 4
+                            } else if ("星期四" == week) {
+                                index = 5
+                            } else if ("星期五" == week) {
+                                index = 6
+                            } else if ("星期六" == week) {
+                                index = 7
+                            } else if ("星期日" == week) {
+                                index = 1
                             }
+                            val name = mEmployeeList[i]
+                            var trueIndex = index + index - 1
+                            if (StringUtils.isStrNotEmpty(name)) {
+                                (mCalendarView[1]!!.getChildAt(trueIndex) as TextView).text = name
+                            } else {
+                                (mCalendarView[1]!!.getChildAt(trueIndex) as TextView).text = i.toString()
+                            }
+                            if (index < 7) {
+                                index++
+                            } else {
+                                index = 1
+                            }
+                        } else {
+                            val name = mEmployeeList[i]
+                            if (index == 1) {
+//                                if (weekIndex == 1) {
+//                                    weekView = week2
+//                                } else if (weekIndex == 2) {
+//                                    weekView = week3
+//                                } else if (weekIndex == 3) {
+//                                    weekView = week4
+//                                } else if (weekIndex == 4) {
+//                                    weekView = week5
+//                                }
+                                weekIndex++
+                                weekView = mCalendarView[weekIndex]
+                            }
+
+                            var trueIndex = index + index - 1
+                            if (StringUtils.isStrNotEmpty(name)) {
+                                (weekView!!.getChildAt(trueIndex) as TextView).text = name
+                            } else {
+                                (weekView!!.getChildAt(trueIndex) as TextView).text = i.toString()
+                            }
+
+                            if (index < 7) {
+                                index++
+                            } else {
+                                index = 1
+                            }
+                        }
                     }
                 }
             }.lparams(width = matchParent, height = matchParent)

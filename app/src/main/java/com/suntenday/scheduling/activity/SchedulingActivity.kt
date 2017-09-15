@@ -25,12 +25,31 @@ class SchedulingActivity : Activity() {
         queryScheduling()
     }
 
-    fun queryScheduling() {
-        SchedulingViewUi(this, CalendarUtils.getYear(), CalendarUtils.getMonth(), weekNameStoreMap).setContentView(this)
+    private fun queryScheduling() {
+        queryScheduling(CalendarUtils.getYear(),CalendarUtils.getMonth())
     }
 
     fun queryScheduling(year: Int, month: Int) {
+        val whereArgs = arrayOf(year.toString() + "-" + month.toString())
+        weekNameStoreMap = DBManager.getInstance().querySchedulingList(this, "scheduling_date", whereArgs)
+        SchedulingViewUi(this, year, month, weekNameStoreMap).setContentView(this)
+    }
+
+    fun addScheduling(year: Int, month: Int){
         weekNameStoreMap.clear()
+        weekNameStoreMap = querySchedulingEmployee(year, month)
+        DBManager.getInstance().addSchedulingList(this, year.toString() + "-" + month.toString(), weekNameStoreMap)
+        SchedulingViewUi(this, year, month, weekNameStoreMap).setContentView(this)
+    }
+
+    fun updateScheduling(year: Int, month: Int){
+        weekNameStoreMap.clear()
+        weekNameStoreMap = querySchedulingEmployee(year, month)
+        DBManager.getInstance().updateSchedulingList(this, year.toString() + "-" + month.toString(), weekNameStoreMap)
+        SchedulingViewUi(this, year, month, weekNameStoreMap).setContentView(this)
+    }
+
+    private fun querySchedulingEmployee(year: Int, month: Int):HashMap<Int, String>{
         val weekStoreMap = HashMap<String, ArrayList<Int>?>()
         val monthDay = getMonthDay(year, month)
         for (i in 1..monthDay) {
@@ -46,9 +65,7 @@ class SchedulingActivity : Activity() {
         }
 
         var employeeRuleList = DBManager.getInstance().queryEmployeeRule(this, null, null)
-        System.out.println("打乱之前==="+JSON.toJSONString(employeeRuleList))
         Collections.shuffle(employeeRuleList)
-        System.out.println("打乱之后==="+JSON.toJSONString(employeeRuleList))
         for (employee in employeeRuleList) {
             val day = getDayForEmployee(employee, weekStoreMap)
             if (day > 0) {
@@ -56,7 +73,7 @@ class SchedulingActivity : Activity() {
                 weekNameStoreMap.put(day, employee.name)
             }
         }
-        SchedulingViewUi(this, year, month, weekNameStoreMap).setContentView(this)
+        return weekNameStoreMap
     }
 
     private fun updateMap(weekStoreMap: HashMap<String, ArrayList<Int>?>, removeSeed: Int?) {
@@ -77,7 +94,7 @@ class SchedulingActivity : Activity() {
             return -1
         }
         val random = Random()
-        val randomNum = random.nextInt(daysForEmployee!!.size - 1)
+        val randomNum = random.nextInt(daysForEmployee!!.size)
         return daysForEmployee!![randomNum]
 
     }

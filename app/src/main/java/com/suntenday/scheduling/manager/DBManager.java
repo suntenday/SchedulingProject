@@ -1,6 +1,8 @@
 package com.suntenday.scheduling.manager;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -51,10 +53,10 @@ public class DBManager {
             );
 
             db.execSQL("CREATE TABLE IF NOT EXISTS " + EMPLOYEE_SCHEDULING_TABLE_NAME + "(" +
-                    "scheduling_id integer PRIMARY KEY autoincrement," +
+                    "scheduling_id integer primary key autoincrement," +
                     "scheduling_date text," +
                     "scheduling_day integer," +
-                    "scheduling_employees_name text" +
+                    "scheduling_employee_name text" +
                     ")"
             );
 
@@ -169,7 +171,9 @@ public class DBManager {
                     null, whereClause, whereArgs, null, null, null);
             for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 EmployeeRuleBean employeeRuleData = new EmployeeRuleBean(cursor);
-                listData.add(employeeRuleData);
+                if (StringUtils.isStrNotEmpty(employeeRuleData.getName())) {
+                    listData.add(employeeRuleData);
+                }
             }
 
             cursor.close();
@@ -181,4 +185,94 @@ public class DBManager {
         return listData;
     }
 
+    public void addSchedulingList(Context context, String date, HashMap<Integer, String> listData) {
+        SQLiteDatabase db = getDBHelper(context).getWritableDatabase();
+        try {
+            db.beginTransaction();
+            for (int i = 1; i <= 31; i++) {
+                String employeeName = listData.get(i);
+                if(StringUtils.isStrNotEmpty(employeeName)) {
+                    ContentValues values = new ContentValues();
+                    values.put("scheduling_date", date);
+                    values.put("scheduling_day", i);
+                    values.put("scheduling_employee_name", employeeName);
+                    db.insert(DBHelper.EMPLOYEE_SCHEDULING_TABLE_NAME, null, values);
+                }
+            }
+            db.setTransactionSuccessful();
+        } catch (Exception e) {
+            LogUtils.logError(LOG_TAG, "addSchedulingList, exception:" + e.getLocalizedMessage() + ";db=" + db);
+            e.printStackTrace();
+        } finally {
+            db.endTransaction();
+        }
+    }
+
+    public void deleteSchedulingList(Context context, String date, HashMap<Integer, String> listData) {
+        SQLiteDatabase db = getDBHelper(context).getWritableDatabase();
+        try {
+            db.beginTransaction();
+            String whereClause = "scheduling_date=?";
+            String[] whereArgs = {date};
+            db.delete(DBHelper.EMPLOYEE_SCHEDULING_TABLE_NAME, whereClause, whereArgs);
+            db.setTransactionSuccessful();
+        } catch (Exception e) {
+            LogUtils.logError(LOG_TAG, "addSchedulingList, exception:" + e.getLocalizedMessage() + ";db=" + db);
+            e.printStackTrace();
+        } finally {
+            db.endTransaction();
+        }
+    }
+
+    public void updateSchedulingList(Context context, String date, HashMap<Integer, String> listData) {
+        deleteSchedulingList(context, date, listData);
+        SQLiteDatabase db = getDBHelper(context).getWritableDatabase();
+        try {
+            db.beginTransaction();
+            for (int i = 1; i <= 31; i++) {
+                String employeeName = listData.get(i);
+                if(StringUtils.isStrNotEmpty(employeeName)) {
+                    ContentValues values = new ContentValues();
+                    values.put("scheduling_date", date);
+                    values.put("scheduling_day", i);
+                    values.put("scheduling_employee_name", employeeName);
+                    db.insert(DBHelper.EMPLOYEE_SCHEDULING_TABLE_NAME, null, values);
+                }
+            }
+            db.setTransactionSuccessful();
+        } catch (Exception e) {
+            LogUtils.logError(LOG_TAG, "addSchedulingList, exception:" + e.getLocalizedMessage() + ";db=" + db);
+            e.printStackTrace();
+        } finally {
+            db.endTransaction();
+        }
+    }
+
+    public HashMap<Integer, String>  querySchedulingList(Context context, String whereClause, String[] whereArgs) {
+        SQLiteDatabase db = getDBHelper(context).getWritableDatabase();
+
+        HashMap<Integer, String> listData = new HashMap<>();
+
+        try {
+            if (StringUtils.isStrNotEmpty(whereClause)) {
+                whereClause = whereClause + "=?";
+            }
+            Cursor cursor = db.query(DBHelper.EMPLOYEE_SCHEDULING_TABLE_NAME,
+                    null, whereClause, whereArgs, null, null, null);
+            for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+                int day = cursor.getInt(cursor.getColumnIndex("scheduling_day"));
+                String employeeName = cursor.getString(cursor.getColumnIndex("scheduling_employee_name"));
+                if (StringUtils.isStrNotEmpty(employeeName)) {
+                    listData.put(day, employeeName);
+                }
+            }
+
+            cursor.close();
+        } catch (Exception e) {
+            LogUtils.logError(LOG_TAG, "querySchedulingList, exception:" + e.getLocalizedMessage() + ";db=" + db);
+            e.printStackTrace();
+        }
+
+        return listData;
+    }
 }

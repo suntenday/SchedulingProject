@@ -18,7 +18,7 @@
         </activity>
 
         <activity android:name=".activity.TypeInActivity"
-            android:windowSoftInputMode="adjustUnspecified"
+            android:windowSoftInputMode="stateHidden"
             />
         <activity android:name=".activity.SchedulingActivity"/>
 

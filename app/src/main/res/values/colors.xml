@@ -4,10 +4,12 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="blue">#00FFFF</color>
-    <color name="blue_dark">#1874CD</color>
+    <color name="cyan">#00FFFF</color>
+    <color name="royal_blue">#4169E1</color>
     <color name="green">#00FF00</color>
     <color name="green_dark">#228B22</color>
     <color name="white">#FFFFFF</color>
+    <color name="crimson">#DC143C</color>
+    <color name="light_pink">#FFB6C1</color>
 
 </resources>
