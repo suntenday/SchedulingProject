@@ -97,12 +97,14 @@ class SchedulingViewUi(activity: SchedulingActivity, year: Int, month: Int, empl
                         if (mEmployeeList != null && mEmployeeList.size > 0) {
                             text = "已排班"
                             isEnabled = false
+                            textColor = resources.getColor(R.color.dim_gray)
+                            backgroundColor = resources.getColor(R.color.silver)
                         } else {
                             text = "排班"
                             isEnabled = true
+                            textColor = resources.getColor(R.color.white)
+                            backgroundDrawable = resources.getDrawable(R.drawable.selector_button_blue_corner)
                         }
-                        textColor = resources.getColor(R.color.white)
-                        backgroundDrawable = resources.getDrawable(R.drawable.selector_button_blue_corner)
                         onClick {
                             mThis.addScheduling(selectedYear, selectedMonth)
                         }
