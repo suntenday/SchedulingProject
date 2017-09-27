@@ -65,12 +65,14 @@ class SchedulingActivity : Activity() {
         }
 
         var employeeRuleList = DBManager.getInstance().queryEmployeeRule(this, null, null)
-        Collections.shuffle(employeeRuleList)
-        for (employee in employeeRuleList) {
-            val day = getDayForEmployee(employee, weekStoreMap)
-            if (day > 0) {
-                updateMap(weekStoreMap, day)
-                weekNameStoreMap.put(day, employee.name)
+        while(weekNameStoreMap.size < monthDay) {
+            Collections.shuffle(employeeRuleList)
+            for (employee in employeeRuleList) {
+                val day = getDayForEmployee(employee, weekStoreMap)
+                if (day > 0) {
+                    updateMap(weekStoreMap, day)
+                    weekNameStoreMap.put(day, employee.name)
+                }
             }
         }
         return weekNameStoreMap
