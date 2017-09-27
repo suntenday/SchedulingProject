@@ -43,7 +43,7 @@ public enum CommonEnum {
 
     public static Boolean getValue(String key) {
         for (CommonEnum valueEnum : CommonEnum.values()) {
-            if (key.equals(valueEnum.getKey())) {
+            if (valueEnum.getKey().equals(key)) {
                 return valueEnum.getValue();
             }
         }

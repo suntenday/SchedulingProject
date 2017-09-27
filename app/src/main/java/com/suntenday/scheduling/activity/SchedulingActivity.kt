@@ -8,6 +8,8 @@ import org.jetbrains.anko.setContentView
 import com.suntenday.scheduling.utils.ArrayUtils
 import com.suntenday.scheduling.utils.CalendarUtils
 import com.suntenday.scheduling.bean.EmployeeRuleBean
+import com.suntenday.scheduling.enums.CommonEnum
+import com.suntenday.scheduling.enums.WeekDBEnum
 import com.suntenday.scheduling.manager.DBManager
 import org.jetbrains.anko.toast
 import java.util.*
@@ -26,7 +28,7 @@ class SchedulingActivity : Activity() {
     }
 
     private fun queryScheduling() {
-        queryScheduling(CalendarUtils.getYear(),CalendarUtils.getMonth())
+        queryScheduling(CalendarUtils.getYear(), CalendarUtils.getMonth())
     }
 
     fun queryScheduling(year: Int, month: Int) {
@@ -35,23 +37,23 @@ class SchedulingActivity : Activity() {
         SchedulingViewUi(this, year, month, weekNameStoreMap).setContentView(this)
     }
 
-    fun addScheduling(year: Int, month: Int){
+    fun addScheduling(year: Int, month: Int) {
         weekNameStoreMap.clear()
         weekNameStoreMap = querySchedulingEmployee(year, month)
         DBManager.getInstance().addSchedulingList(this, year.toString() + "-" + month.toString(), weekNameStoreMap)
         SchedulingViewUi(this, year, month, weekNameStoreMap).setContentView(this)
     }
 
-    fun updateScheduling(year: Int, month: Int){
+    fun updateScheduling(year: Int, month: Int) {
         weekNameStoreMap.clear()
         weekNameStoreMap = querySchedulingEmployee(year, month)
         DBManager.getInstance().updateSchedulingList(this, year.toString() + "-" + month.toString(), weekNameStoreMap)
         SchedulingViewUi(this, year, month, weekNameStoreMap).setContentView(this)
     }
 
-    private fun querySchedulingEmployee(year: Int, month: Int):HashMap<Int, String>{
+    private fun querySchedulingEmployee(year: Int, month: Int): HashMap<Int, String> {
         val weekStoreMap = HashMap<String, ArrayList<Int>?>()
-        val monthDay = getMonthDay(year, month)
+        var monthDay = getMonthDay(year, month)
         for (i in 1..monthDay) {
             val date = year.toString() + "-" + month + "-" + i
             val week = CalendarUtils.getWeek(date, CalendarUtils.DATE_FORMAT)
@@ -63,9 +65,11 @@ class SchedulingActivity : Activity() {
             weekDays?.add(i)
             weekStoreMap.put(week, weekDays)
         }
-
+        monthDay = checkWeekStoreMap(weekStoreMap, monthDay)
         var employeeRuleList = DBManager.getInstance().queryEmployeeRule(this, null, null)
-        while(weekNameStoreMap.size < monthDay) {
+        System.out.println("weekNameStoreMap.size=" + weekNameStoreMap.size)
+        System.out.println("monthDay=" + monthDay)
+        while (weekNameStoreMap.size < monthDay) {
             Collections.shuffle(employeeRuleList)
             for (employee in employeeRuleList) {
                 val day = getDayForEmployee(employee, weekStoreMap)
@@ -75,14 +79,37 @@ class SchedulingActivity : Activity() {
                 }
             }
         }
+        System.out.println("weekNameStoreMap2.size=" + weekNameStoreMap.size)
         return weekNameStoreMap
+    }
+
+    private fun checkWeekStoreMap(weekStoreMap: HashMap<String, ArrayList<Int>?>, monthDay: Int): Int {
+        val key = arrayOf("星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日")
+        var recordMonthDay = monthDay
+        for (i in 0..6) {
+            var key = key[i]
+            var weekStore = weekStoreMap[key]
+            var whereArgs = arrayOf(CommonEnum.YES.key)
+            var employeeRuleList = DBManager.getInstance().queryEmployeeRule(this, WeekDBEnum.getDBName(key), whereArgs)
+            System.out.println(i.toString() + "|key" + key + "|employeeRuleList=" + JSON.toJSONString(employeeRuleList))
+            if (ArrayUtils.isEmpty(employeeRuleList)) {
+                recordMonthDay -= weekStore!!.size
+                System.out.println("weekStore!!.size=" + weekStore!!.size)
+                System.out.println("change_monthDay=" + monthDay)
+                weekStoreMap.remove(key)
+            }
+        }
+        return recordMonthDay
     }
 
     private fun updateMap(weekStoreMap: HashMap<String, ArrayList<Int>?>, removeSeed: Int?) {
         val key = arrayOf("星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日")
         for (i in 0..6) {
-            var result = weekStoreMap[key[i]] as MutableCollection<Int>
-            result.remove(removeSeed)
+            val weekStore = weekStoreMap[key[i]]
+            if (weekStore != null) {
+                var result = weekStore as MutableCollection<Int>
+                result.remove(removeSeed)
+            }
         }
     }
 
