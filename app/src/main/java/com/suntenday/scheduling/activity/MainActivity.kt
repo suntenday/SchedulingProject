@@ -22,10 +22,15 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         val btnTypeIn = findViewById<View>(R.id.btn_type_in) as Button
+        val btnImport = findViewById<View>(R.id.btn_import) as Button
         val btnScheduling = findViewById<View>(R.id.btn_scheduling) as Button
 
         btnTypeIn.onClick {
             startActivity<TypeInActivity>()
+        }
+
+        btnImport.onClick {
+            startActivity<ImportActivity>()
         }
 
         btnScheduling.onClick {

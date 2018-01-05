@@ -29,15 +29,30 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center">
-
-            <Button
-                android:id="@+id/btn_type_in"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/royal_blue"
-                android:layout_marginRight="20dp"
-                android:text="@string/main_button_type_in"
-                android:textColor="@color/white" />
+                android:layout_marginRight="@dimen/huge_spacing"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btn_type_in"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/royal_blue"
+                    android:text="@string/main_button_type_in"
+                    android:textColor="@color/white" />
+
+                <Button
+                    android:id="@+id/btn_import"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/royal_blue"
+                    android:layout_marginTop="@dimen/huge_spacing"
+                    android:text="@string/main_button_import"
+                    android:textColor="@color/white" />
+
+            </LinearLayout>
 
             <Button
                 android:id="@+id/btn_scheduling"

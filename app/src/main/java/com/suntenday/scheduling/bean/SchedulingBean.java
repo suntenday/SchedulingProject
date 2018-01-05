@@ -1,7 +1,6 @@
 package com.suntenday.scheduling.bean;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * SchedulingBean

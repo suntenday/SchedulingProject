@@ -6,9 +6,11 @@ import com.suntenday.scheduling.constants.CommonConstatns;
 import com.suntenday.scheduling.enums.CommonEnum;
 
 /**
- * Created by suntenday on 2017/9/10 0010.
+ * 员工规则对象
+ *
+ * @author suntenday
+ * @date 2017-12-19 10:57
  */
-
 public class EmployeeRuleBean {
 
     private String name;

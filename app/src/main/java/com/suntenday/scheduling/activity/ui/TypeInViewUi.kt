@@ -62,7 +62,6 @@ class TypeInViewUi(activity: TypeInActivity, employeeRuleBeanList: List<Employee
                     setMargins(dip(5), dip(5), dip(10), dip(5))
                 }
 
-
             }
             linearLayout {
 
@@ -114,6 +113,7 @@ class TypeInViewUi(activity: TypeInActivity, employeeRuleBeanList: List<Employee
             }.lparams(width = matchParent) {
                 setMargins(dip(10), dip(5), dip(10), dip(5))
             }
+
             textView("*点击员工姓名可删除员工信息").lparams {
                 setMargins(5, 5, 5, 5)
             }
@@ -183,56 +183,63 @@ class TypeInViewUi(activity: TypeInActivity, employeeRuleBeanList: List<Employee
                                 linearLayout {
                                     backgroundColor = resources.getColor(R.color.royal_blue)
                                 }.lparams(width = 1, height = matchParent)
-                                textView(if (item.isMondayChecked) "有空" else "没空") { gravity = Gravity.CENTER
-                                    if (item.isMondayChecked){
+                                textView(if (item.isMondayChecked) "有空" else "没空") {
+                                    gravity = Gravity.CENTER
+                                    if (item.isMondayChecked) {
                                         textColor = resources.getColor(R.color.crimson)
                                     }
                                 }.lparams(width = 0, weight = 1f)
                                 linearLayout {
                                     backgroundColor = resources.getColor(R.color.royal_blue)
                                 }.lparams(width = 1, height = matchParent)
-                                textView(if (item.isTuesdayChecked) "有空" else "没空") { gravity = Gravity.CENTER
-                                    if (item.isTuesdayChecked){
+                                textView(if (item.isTuesdayChecked) "有空" else "没空") {
+                                    gravity = Gravity.CENTER
+                                    if (item.isTuesdayChecked) {
                                         textColor = resources.getColor(R.color.crimson)
                                     }
                                 }.lparams(width = 0, weight = 1f)
                                 linearLayout {
                                     backgroundColor = resources.getColor(R.color.royal_blue)
                                 }.lparams(width = 1, height = matchParent)
-                                textView(if (item.isWednesdayChecked) "有空" else "没空") { gravity = Gravity.CENTER
-                                    if (item.isWednesdayChecked){
+                                textView(if (item.isWednesdayChecked) "有空" else "没空") {
+                                    gravity = Gravity.CENTER
+                                    if (item.isWednesdayChecked) {
                                         textColor = resources.getColor(R.color.crimson)
                                     }
                                 }.lparams(width = 0, weight = 1f)
                                 linearLayout {
                                     backgroundColor = resources.getColor(R.color.royal_blue)
                                 }.lparams(width = 1, height = matchParent)
-                                textView(if (item.isThursdayChekced) "有空" else "没空") { gravity = Gravity.CENTER
-                                    if (item.isThursdayChekced){
+                                textView(if (item.isThursdayChekced) "有空" else "没空") {
+                                    gravity = Gravity.CENTER
+                                    if (item.isThursdayChekced) {
                                         textColor = resources.getColor(R.color.crimson)
                                     }
                                 }.lparams(width = 0, weight = 1f)
                                 linearLayout {
                                     backgroundColor = resources.getColor(R.color.royal_blue)
                                 }.lparams(width = 1, height = matchParent)
-                                textView(if (item.isFridayChecked) "有空" else "没空") { gravity = Gravity.CENTER
-                                    if (item.isFridayChecked){
+                                textView(if (item.isFridayChecked) "有空" else "没空") {
+                                    gravity = Gravity.CENTER
+                                    if (item.isFridayChecked) {
                                         textColor = resources.getColor(R.color.crimson)
                                     }
                                 }.lparams(width = 0, weight = 1f)
                                 linearLayout {
                                     backgroundColor = resources.getColor(R.color.royal_blue)
                                 }.lparams(width = 1, height = matchParent)
-                                textView(if (item.isSaturdayChecked) "有空" else "没空") { gravity = Gravity.CENTER
-                                    if (item.isSaturdayChecked){
+                                textView(if (item.isSaturdayChecked) "有空" else "没空") {
+                                    gravity = Gravity.CENTER
+                                    if (item.isSaturdayChecked) {
                                         textColor = resources.getColor(R.color.crimson)
                                     }
                                 }.lparams(width = 0, weight = 1f)
                                 linearLayout {
                                     backgroundColor = resources.getColor(R.color.royal_blue)
                                 }.lparams(width = 1, height = matchParent)
-                                textView(if (item.isSundayChecked) "有空" else "没空") { gravity = Gravity.CENTER
-                                    if (item.isSundayChecked){
+                                textView(if (item.isSundayChecked) "有空" else "没空") {
+                                    gravity = Gravity.CENTER
+                                    if (item.isSundayChecked) {
                                         textColor = resources.getColor(R.color.crimson)
                                     }
                                 }.lparams(width = 0, weight = 1f)

@@ -53,7 +53,7 @@ class SchedulingViewUi(activity: SchedulingActivity, year: Int, month: Int, empl
                             textSize = resources.getDimension(R.dimen.wer_text_size)
                             backgroundDrawable = resources.getDrawable(R.drawable.shape_bg_blue_5r)
                             onClick {
-                                val years = listOf("2017", "2018")
+                                val years = listOf("2017", "2018", "2019", "2020")
                                 selector("选择年份", years) { ds, i ->
                                     selectedYear = StringUtils.strToInt("${years[i]}")
                                     text = selectedYear.toString() + "年 >"
@@ -164,7 +164,7 @@ class SchedulingViewUi(activity: SchedulingActivity, year: Int, month: Int, empl
                         backgroundColor = resources.getColor(R.color.royal_blue)
                     }.lparams(width = matchParent, height = 1)
 
-                    for(viewIndex in 1..5) {
+                    for(viewIndex in 1..6) {
                         val week = linearLayout {
                             linearLayout { backgroundColor = resources.getColor(R.color.royal_blue) }.lparams(width = 1, height = matchParent)
                             textView("") { gravity = Gravity.CENTER }.lparams(width = 0, weight = 1f)
@@ -241,12 +241,13 @@ class SchedulingViewUi(activity: SchedulingActivity, year: Int, month: Int, empl
                             }
 
                             var trueIndex = index + index - 1
-                            if (StringUtils.isStrNotEmpty(name)) {
-                                (weekView!!.getChildAt(trueIndex) as TextView).text = name
-                            } else {
-                                (weekView!!.getChildAt(trueIndex) as TextView).text = i.toString()
+                            if(weekView!=null) {
+                                if (StringUtils.isStrNotEmpty(name)) {
+                                    (weekView!!.getChildAt(trueIndex) as TextView).text = name
+                                } else {
+                                    (weekView!!.getChildAt(trueIndex) as TextView).text = i.toString()
+                                }
                             }
-
                             if (index < 7) {
                                 index++
                             } else {

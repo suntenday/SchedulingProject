@@ -2,5 +2,6 @@
     <string name="app_name">轻松排班</string>
 
     <string name="main_button_type_in">信息录入</string>
+    <string name="main_button_import">信息导入</string>
     <string name="main_button_scheduling">排班</string>
 </resources>

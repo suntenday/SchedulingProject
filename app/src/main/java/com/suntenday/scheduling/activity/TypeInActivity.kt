@@ -1,18 +1,14 @@
 package com.suntenday.scheduling.activity
 
-import android.app.Activity
 import android.os.Bundle
-import com.alibaba.fastjson.JSON
 import com.suntenday.scheduling.activity.base.BaseActivity
 import com.suntenday.scheduling.activity.ui.TypeInViewUi
 import com.suntenday.scheduling.bean.EmployeeRuleBean
-import com.suntenday.scheduling.bean.SimpleBean
 import com.suntenday.scheduling.manager.DBManager
 import com.suntenday.scheduling.utils.ArrayUtils
 import com.suntenday.scheduling.utils.StringUtils
 import org.jetbrains.anko.setContentView
 import org.jetbrains.anko.toast
-import java.time.DayOfWeek
 
 /**
  * Created by suntenday on 2017/9/8 0008.
