@@ -23,7 +23,7 @@ import com.suntenday.scheduling.R;
 /**
  * com.suntenday.scheduling.dialog
  *
- * @author zhengli08275
+ * @author suntenday
  * @date 2018/1/5 0005 10:53
  */
 public class FileDialog {

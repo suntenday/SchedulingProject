@@ -2,7 +2,7 @@ package com.suntenday.scheduling.constants;
 
 /**
  * 权限抽象类
- * @author zhengli08275
+ * @author suntenday
  *
  */
 public class PermissionConstant {

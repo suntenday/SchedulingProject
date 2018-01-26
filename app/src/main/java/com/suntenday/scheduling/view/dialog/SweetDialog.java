@@ -12,7 +12,7 @@ import com.suntenday.scheduling.R;
 
 /**
  * 标准弹出框
- * @author zhengli08275
+ * @author suntenday
  *
  */
 public class SweetDialog extends Dialog{

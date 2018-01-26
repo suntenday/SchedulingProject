@@ -20,7 +20,7 @@ import com.suntenday.scheduling.utils.StringUtils;
 /**
  * dialog提示框
  *
- * @author zhengli08275
+ * @author suntenday
  */
 public class CustomDialog extends AlertDialog implements View.OnClickListener {
 

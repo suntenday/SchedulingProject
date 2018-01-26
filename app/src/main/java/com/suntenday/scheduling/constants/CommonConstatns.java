@@ -2,7 +2,7 @@ package com.suntenday.scheduling.constants;
 
 /**
  * CommonConstatns
- * @author zhengli08275
+ * @author suntenday
  * @date 2018/1/26 0026 15:59
  */
 public class CommonConstatns {

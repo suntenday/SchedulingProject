@@ -15,7 +15,7 @@ import com.suntenday.scheduling.utils.WindowSoftInputUtils
 
 /**
  * BaseActivity
- * @author zhengli08275
+ * @author suntenday
  * @date 2017/9/11 0011.
  */
 public open class BaseActivity : Activity() {

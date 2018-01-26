@@ -8,7 +8,7 @@ import java.io.Serializable;
 /**
  * dialog自定义样式
  *
- * @author zhengli08275
+ * @author suntenday
  */
 public class CustomDialogStyle implements Serializable {
 

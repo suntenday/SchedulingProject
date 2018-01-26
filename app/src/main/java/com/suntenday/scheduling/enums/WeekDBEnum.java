@@ -3,7 +3,7 @@ package com.suntenday.scheduling.enums;
 /**
  * WeekDBEnum
  *
- * @author zhengli08275
+ * @author suntenday
  * @date 2017/9/27 0027.
  */
 

@@ -15,7 +15,7 @@ import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 
 /**
  * 多种像素处理及获取屏幕像素方式
- * @author zhengli08275
+ * @author suntenday
  *
  */
 public class PixUtils {

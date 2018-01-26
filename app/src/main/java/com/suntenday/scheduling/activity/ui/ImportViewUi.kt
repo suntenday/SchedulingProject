@@ -12,7 +12,7 @@ import org.jetbrains.anko.sdk25.coroutines.onClick
 
 /**
  * 导入员工界面类
- * @author zhengli08275
+ * @author suntenday
  * @date 2018/1/5 0005 10:36
  */
 class ImportViewUi (activity: ImportActivity, employeeRuleBeanList: List<EmployeeRuleBean>, path:String):AnkoComponent<ImportActivity>{

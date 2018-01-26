@@ -12,7 +12,7 @@ import android.view.View;
 
 /**
  * 权限工具类
- * @author zhengli08275
+ * @author suntenday
  * @date 2018/1/18 0018 11:59
  */
 public class PermissionUtils {
