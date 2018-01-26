@@ -4,4 +4,21 @@
     <string name="main_button_type_in">信息录入</string>
     <string name="main_button_import">信息导入</string>
     <string name="main_button_scheduling">排班</string>
+
+    <!-- 通用 -->
+    <string name="img_description">图片</string>
+    <string name="btn_confirm">确认</string>
+    <string name="btn_back">返回</string>
+    <string name="btn_ok">确定</string>
+    <string name="btn_cancel">取消</string>
+    <string name="btn_submit">提交</string>
+    <string name="btn_next">下一步</string>
+    <string name="btn_refresh">刷新试试</string>
+    <string name="btn_exit">退出</string>
+    <string name="btn_buy">立即购票</string>
+    <string name="btn_verify">验证</string>
+    <string name="btn_reset_pw">重置密码</string>
+    <string name="btn_signin">登录</string>
+    <string name="btn_setting">设置</string>
+    <string name="btn_regist">注册</string>
 </resources>

@@ -36,6 +36,7 @@ public open class BaseActivity : Activity() {
      * @param allowableRunnable 同意授权后的操作
      * @param disallowableRunnable 禁止权限后的操作
      */
+    @SuppressLint("NewApi")
     fun requestPermission(id: Int, permission: String, allowableRunnable: Runnable?, disallowableRunnable: Runnable?) {
         if (allowableRunnable == null) {
             throw IllegalArgumentException("allowableRunnable == null")

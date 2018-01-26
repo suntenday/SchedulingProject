@@ -5,6 +5,8 @@ import android.database.Cursor;
 import com.suntenday.scheduling.constants.CommonConstatns;
 import com.suntenday.scheduling.enums.CommonEnum;
 
+import java.util.Map;
+
 /**
  * 员工规则对象
  *
@@ -46,6 +48,19 @@ public class EmployeeRuleBean {
         this.isFridayChecked = CommonEnum.getValue(cursor.getString(cursor.getColumnIndex("employee_friday_checked")));
         this.isSaturdayChecked = CommonEnum.getValue(cursor.getString(cursor.getColumnIndex("employee_saturday_checked")));
         this.isSundayChecked = CommonEnum.getValue(cursor.getString(cursor.getColumnIndex("employee_sunday_checked")));
+    }
+
+    public EmployeeRuleBean(Map<Integer, String> excelItemMap) {
+        if(excelItemMap.size()>7) {
+            this.name = excelItemMap.get(0);
+            this.isMondayChecked = CommonConstatns.YES.equals(excelItemMap.get(1));
+            this.isTuesdayChecked = CommonConstatns.YES.equals(excelItemMap.get(2));
+            this.isWednesdayChecked = CommonConstatns.YES.equals(excelItemMap.get(3));
+            this.isThursdayChekced = CommonConstatns.YES.equals(excelItemMap.get(4));
+            this.isFridayChecked = CommonConstatns.YES.equals(excelItemMap.get(5));
+            this.isSaturdayChecked = CommonConstatns.YES.equals(excelItemMap.get(6));
+            this.isSundayChecked = CommonConstatns.YES.equals(excelItemMap.get(7));
+        }
     }
 
     public String getName() {

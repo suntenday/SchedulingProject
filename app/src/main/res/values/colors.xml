@@ -14,4 +14,58 @@
     <color name="silver">#C0C0C0</color>
     <color name="dim_gray">#696969</color>
 
+    <!-- 半透明背景颜色 -->
+    <color name="transparent_3_white_bg">#30ffffff</color>
+    <color name="transparent_half_bg">#90000000</color>
+    <color name="transparent_half_white_bg">#90ffffff</color>
+    <color name="transparent_black_bg">#e0000000</color>
+    <color name="transparent_black_white_bg">#e0ffffff</color>
+    <color name="transparent_bg">#00000000</color>
+    <color name="transparent_10_present_bg">#19ffffff</color>
+    <color name="transparent_gray_bg">#20000000</color>
+    <color name="transparent_dark_gray_bg">#9058595B</color>
+    <color name="transparent_e0_gray_bg" >#e03d434f</color>
+
+    <!-- 标准背景颜色 -->
+    <color name="white_bg">#FFFFFF</color>
+    <color name="gray_bg">#D3D3D3</color>
+    <color name="grayer_bg">#E0E0E0</color>
+    <color name="gray_themes_bg">#EEEEEE</color>
+    <color name="pink_bg">#FF5A5F</color>
+    <color name="green_bg">#00C800</color>
+    <color name="dark_green">#05b07b</color>
+    <color name="red_bg">#A70317</color>
+    <color name="red_normal_bg">#FF0000</color>
+    <color name="orange_bg">#FF8A3C</color>
+    <color name="purple_bg">#AF87C5</color>
+    <color name="purple_blue">#5A6BAB</color>
+    <color name="yellow_bg">#FFCC00</color>
+    <color name="cyan_bg">#3D434F</color>
+    <color name="gray_white_bg">#F1F2F6</color>
+    <color name="hs_blue_bg">#00A4FF</color>
+
+    <!-- 字体颜色 -->
+    <color name="gray_main_text">#D4CFCB</color>
+    <color name="red_main_text">#A70317</color>
+    <color name="cream_white_text">#F5FFFA</color>
+    <color name="blue_text">#4169E1</color>
+    <color name="light_blue_text">#00A4FF</color>
+    <color name="dark_blue_text">#5A6BAB</color>
+    <color name="pink_text">#FFB1B2</color>
+    <color name="red_text">#FF7A7A</color>
+    <color name="light_text">#FFFFFF</color>
+    <color name="dark_text">#181818</color>
+    <color name="orange_text">#FF8400</color>
+    <color name="light_gray_text">#C9C9C9</color>
+    <color name="gray_text">#AAA9A9</color>
+    <color name="dark_gray_text">#808080</color>
+    <color name="darker_gray_text">#666666</color>
+    <color name="darkest_gray_text">#333333</color>
+    <color name="yellow_text">#FFCC00</color>
+    <color name="green_text">#339900</color>
+    <color name="light_green_text">#05B07B</color>
+    <color name="purple_text">#6E6ECE</color>
+    <color name="brown_text">#A96F16</color>
+    <color name="dark_pink_text">#FF7971</color>
+
 </resources>

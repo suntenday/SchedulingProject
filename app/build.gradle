@@ -55,6 +55,9 @@ dependencies {
     implementation "org.jetbrains.anko:anko-sqlite:$anko_version"
     implementation "org.jetbrains.anko:anko-coroutines:$anko_version"
 
-//    implementation 'org.apache.poi:poi:3.17'
+//    compile 'org.apache.poi:poi:3.17'
+//    compile 'org.apache.poi:poi-ooxml:3.17'
     implementation 'net.sourceforge.jexcelapi:jxl:2.6.12'
+    implementation 'com.readystatesoftware.systembartint:systembartint:1.0.4'
+
 }
