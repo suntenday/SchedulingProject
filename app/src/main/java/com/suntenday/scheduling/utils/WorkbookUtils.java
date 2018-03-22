@@ -61,8 +61,18 @@ public class WorkbookUtils {
      * 监听
      */
     public interface WorkBookReadListener {
+        /**
+         * 记录
+         * @param content
+         * @param col
+         * @param row
+         */
         void recordData(String content, int col, int row);
 
+        /**
+         * 异常
+         * @param errorMsg
+         */
         void recodeError(String errorMsg);
     }
 }
